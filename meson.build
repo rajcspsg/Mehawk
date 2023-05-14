@@ -55,13 +55,21 @@ include_dirs = [
 ]
 
 sources = files(
-  'src/main.cpp',
+)
+
+
+haumea_dep = declare_dependency(
+  sources: [sources],
+  dependencies: local_deps,
+  include_directories: include_dirs,
 )
 
 executable(
   'haumea',
-  sources,
-  dependencies: local_deps,
-  include_directories: include_dirs,
+  files('src/main.cpp'),
+  dependencies: haumea_dep,
   override_options: compilation_options,
+  install: true
 )
+
+subdir('test')

@@ -22,4 +22,8 @@ release: meson-exists
 	meson configure --buildtype release -Db_sanitize=none --optimization 3 -Db_lto=true -Dcpp_debugstl=false {{ release_build_dir }}
 	meson compile -C {{ release_build_dir }}
 
+alias t := test
+test: meson-exists
+	meson test -C {{ debug_build_dir }} --no-suite catch2
+
 # vim: ft=make
