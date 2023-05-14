@@ -13,12 +13,12 @@ setup-debug: meson-exists
 	meson setup {{ debug_build_dir }}
 
 alias d := debug
-debug: meson-exists setup-debug
+debug: meson-exists
 	meson configure --buildtype debug --debug -Db_lundef=false --optimization 0 -Dcpp_debugstl=true -Db_sanitize=address,undefined --warnlevel 3 {{ debug_build_dir }}
 	meson compile -C {{ debug_build_dir }}
 
 alias r := release
-release: meson-exists setup-release
+release: meson-exists
 	meson configure --buildtype release -Db_sanitize=none --optimization 3 -Db_lto=true -Dcpp_debugstl=false {{ release_build_dir }}
 	meson compile -C {{ release_build_dir }}
 
