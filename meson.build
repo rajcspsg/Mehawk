@@ -31,8 +31,6 @@ OPUS_INCLUDE_DIRS = cmd.stdout().strip()
 cmd = run_command('sh', '-c', 'echo $OPUS_LIBRARIES')
 OPUS_LIBRARIES = cmd.stdout().strip()
 
-dpp_sub_opts.add_cmake_defines( { 'OPUS_INCLUDE_DIRS': OPUS_INCLUDE_DIRS } )
-dpp_sub_opts.add_cmake_defines( { 'OPUS_LIBRARIES': OPUS_LIBRARIES } )
 dpp_sub = cmake.subproject('dpp', options: dpp_sub_opts, required: true)
 
 local_deps = [
