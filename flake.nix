@@ -17,10 +17,10 @@
       formatter = pkgs.alejandra;
 
       devShells.default = with pkgs; mkShell.override {
-          stdenv = lowPrio llvmPackages_15.stdenv;
+          stdenv = lowPrio llvmPackages_16.stdenv;
         } {
           buildInputs = [
-            clang-tools_15
+            clang-tools_16
             cmake
             pkg-config
 
@@ -34,7 +34,7 @@
           ];
 
           env = {
-            CLANGD_PATH = "${pkgs.clang-tools_15}/bin/clangd";
+            CLANGD_PATH = "${pkgs.clang-tools_16}/bin/clangd";
           };
         };
 
