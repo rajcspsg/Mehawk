@@ -1,3 +1,4 @@
-#!/bin/env bash
+#!/bin/sh
 
+rm *.md **/*.md
 nvim --headless --clean -u tools/init.lua -c "ConvertAll"
