@@ -54,7 +54,7 @@ local function setup_neorg()
     load = {
       ['core.defaults'] = {},
       ['core.export'] = {},
-      ['core.export.markdown'] = { config = { extensions = 'all' } }
+      ['core.export.markdown'] = {}
     }
   }
 end
