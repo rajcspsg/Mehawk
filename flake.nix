@@ -19,6 +19,15 @@
       }: {
         formatter = pkgs.alejandra;
 
+        devShells.norg = with pkgs;
+          mkShell {
+            buildInputs = [
+              cmake
+              gcc
+              gccStdenv
+            ];
+          };
+
         devShells.default = with pkgs;
           mkShell.override {
             stdenv = lowPrio llvmPackages_16.stdenv;
