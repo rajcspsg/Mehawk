@@ -10,6 +10,10 @@ if(meson.get_compiler('cpp').get_id() == 'msvc')
   add_project_arguments('-DNOMINMAX', language: 'cpp')
 endif
 
+if(meson.get_compiler('cpp').get_id() == 'clang')
+  add_project_arguments(['-stdlib=libc++'], language : 'cpp')
+endif
+
 cmake = import('cmake')
 
 dpp_sub_opts = cmake.subproject_options()
@@ -56,7 +60,6 @@ include_dirs = [
 
 sources = files(
 )
-
 
 haumea_dep = declare_dependency(
   sources: [sources],
