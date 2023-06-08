@@ -1,6 +1,0 @@
-
-
-
-
-# Haumea architecture
-
