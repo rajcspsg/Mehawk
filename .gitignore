@@ -9,7 +9,7 @@
 !meson.build
 !Justfile
 
-!*.norg
+!*.md
 
 !.clang-format
 !.clang-tidy
