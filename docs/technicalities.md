@@ -1,6 +1,7 @@
 # Haumea technicalities
 
 ## Tools used
+
 - **Programming language** - C++20 with:
   - dpp 10.0.23 (for discord, a patched version that allows for self-botting)
   - spdlog 1.11.0 (for logging)
@@ -15,6 +16,7 @@
   - Just 1.13.0 (command runner)
 
 ## Key features
+
 - Overlay for given text/voice chats
   - Ability to filter messages and users in the overlay
   - Potentially ability to display images/gifs/files in /some/ way
