@@ -2,7 +2,7 @@ project(
   'haumea',
   'cpp',
   version : '0.1.0',
-  meson_version : '>= 0.56.0',
+  meson_version : '>= 0.63.0',
   license: 'mit'
 )
 
@@ -17,20 +17,17 @@ endif
 
 cmake = import('cmake')
 
-dpp_sub_opts = cmake.subproject_options()
-if host_machine.system() == 'linux' and meson.get_compiler('cpp').has_argument('-pthread')
-  # a quickfix for dpp not having -pthread for some reason
-  dpp_sub_opts.append_link_args('-pthread')
-endif
+build_type_opts = cmake.subproject_options()
+build_type_opts.add_cmake_defines( { 'CMAKE_BUILD_TYPE': get_option('buildtype').to_upper() } )
 
-dpp_sub_opts.add_cmake_defines( { 'CMAKE_BUILD_TYPE': get_option('buildtype').to_upper() } )
-
-dpp_sub = cmake.subproject('dpp', options: dpp_sub_opts, required: true)
+dpp_sub = cmake.subproject('dpp', options: build_type_opts, required: true)
+libassert_sub = cmake.subproject('libassert', options: build_type_opts, required: true)
 
 local_deps = [
-  dependency('threads'),
+  dependency('threads', required: true),
 
   dpp_sub.dependency('dpp'),
+  libassert_sub.dependency('assert'),
 
   dependency('spdlog', required: true),
   dependency(

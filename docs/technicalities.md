@@ -7,9 +7,9 @@
   - spdlog 1.11.0 (for logging)
   - gtkmm-4.0 (for GUI)
   - catch2 3.2.0 (for unit tests)
-  - libassert (for awesome asserts)
+  - libassert v1.1 (for awesome asserts)
 
-- **Build system** - Meson >= 0.56.0
+- **Build system** - Meson >= 0.63.0
 
 - **Utility**:
   - Nix 23.05 (reproducibility, environments and such)
