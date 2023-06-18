@@ -4,6 +4,9 @@ default:
 meson-exists:
 	@if ! which meson 1>/dev/null 2>&1; then echo 'Cannot find meson executable'; exit 1; fi
 
+nixgl-exists:
+	@if ! which nixGL 1>/dev/null 2>&1; then echo 'Cannot find nixGL executable'; exit 1; fi
+
 release_build_dir := "build_release"
 debug_build_dir := "build_debug"
 
@@ -24,6 +27,14 @@ alias r := release
 release: meson-exists
 	meson configure --buildtype release -Db_sanitize=none --optimization 3 -Db_lto=true -Dcpp_debugstl=false {{ release_build_dir }}
 	meson compile -C {{ release_build_dir }}
+
+alias rd := run-debug
+run-debug: nixgl-exists
+	nixGL {{ debug_build_dir }}/src/haumea
+
+alias rr := run-release
+run-release: nixgl-exists
+	nixGL {{ release_build_dir }}/src/haumea
 
 alias t := test
 test: meson-exists
