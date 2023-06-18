@@ -12,7 +12,7 @@ if(meson.get_compiler('cpp').get_id() == 'msvc')
 endif
 
 if(meson.get_compiler('cpp').get_id() == 'clang')
-  add_project_arguments(['-stdlib=libc++'], language : 'cpp')
+  add_project_arguments(['-stdlib=libc++'], language: 'cpp')
 endif
 
 cmake = import('cmake')
@@ -30,11 +30,7 @@ local_deps = [
   libassert_sub.dependency('assert'),
 
   dependency('spdlog', required: true),
-  dependency(
-    'gtkmm-4.0',
-    required: true,
-    allow_fallback: true
-  ),
+  dependency('glfw3', required: true),
 ]
 
 haumea_compilation_options = [
