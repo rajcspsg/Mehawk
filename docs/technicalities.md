@@ -5,7 +5,9 @@
 - **Programming language** - C++20 with:
   - dpp 10.0.23 (for discord, a patched version that allows for self-botting)
   - spdlog 1.11.0 (for logging)
-  - gtkmm-4.0 (for GUI)
+  - opengl:
+    - glfw 3.3.8
+    - glad 0.1.36 (gl 3.3, compatibility)
   - catch2 3.2.0 (for unit tests)
   - libassert v1.1 (for awesome asserts)
 
