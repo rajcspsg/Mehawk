@@ -20,9 +20,10 @@
 ## Key features
 
 - Overlay for given text/voice chats
-  - Ability to filter messages and users in the overlay
-  - Potentially ability to display images/gifs/files in /some/ way
-  - Better notifications, also ability to set *watches* (that is - notifications for new messages in certain channels)
-  - Moving the overlay
-  - Overlay is transparent generally but can be enabled to be not-transparent and clickable
-  - Vim keybinds
+- Ability to filter messages and users in the overlay
+- Potentially ability to display images/gifs/files in _some_ way
+- Better notifications, also ability to set *watches* (that is - notifications for new messages in certain channels)
+- Moving the overlay
+- Overlay is transparent generally but can be enabled to be not-transparent and clickable
+- Vim keybinds
+- Ability to type a message
