@@ -1,6 +1,6 @@
 project(
   'haumea',
-  'cpp',
+  [ 'c', 'cpp' ],
   version : '0.1.0',
   meson_version : '>= 0.63.0',
   license: 'mit'
@@ -22,12 +22,16 @@ build_type_opts.add_cmake_defines( { 'CMAKE_BUILD_TYPE': get_option('buildtype')
 
 dpp_sub = cmake.subproject('dpp', options: build_type_opts, required: true)
 libassert_sub = cmake.subproject('libassert', options: build_type_opts, required: true)
+optional_sub = cmake.subproject('optional', options: build_type_opts, required: true)
+expected_sub = cmake.subproject('expected', options: build_type_opts, required: true)
 
 local_deps = [
   dependency('threads', required: true),
 
   dpp_sub.dependency('dpp'),
   libassert_sub.dependency('assert'),
+  optional_sub.dependency('optional'),
+  expected_sub.dependency('expected'),
 
   dependency('spdlog', required: true),
   dependency('glfw3', required: true),
