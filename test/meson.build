@@ -1,8 +1,8 @@
 local_deps = [
-  dependency('catch2-with-main', required: true, static: false),
+  dependency('catch2-with-main', required: true),
 ]
 
-test_sources = files()
+test_sources = files('test.cpp')
 
 test_exe = executable(
   'haumea_test',
@@ -11,7 +11,9 @@ test_exe = executable(
   override_options: haumea_compilation_options
 )
 
-tests = []
+tests = [
+  'True equals true'
+]
 
 foreach test : tests
   test(test, test_exe)

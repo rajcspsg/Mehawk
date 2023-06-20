@@ -38,6 +38,9 @@ run-release: nixgl-exists
 
 alias t := test
 test: meson-exists
-	meson test -C {{ debug_build_dir }} --no-suite catch2
+	meson test -C {{ debug_build_dir }} --no-suite catch2 --no-suite spdlog
+
+alias ct := compile-and-test
+compile-and-test: meson-exists debug && test
 
 # vim: ft=make
