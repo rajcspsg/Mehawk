@@ -38,7 +38,7 @@ run-release: nixgl-exists
 
 alias t := test
 test: meson-exists
-	meson test -C {{ debug_build_dir }} --no-suite catch2 --no-suite spdlog
+	./build_debug/test/haumea_test
 
 alias ct := compile-and-test
 compile-and-test: meson-exists debug && test
