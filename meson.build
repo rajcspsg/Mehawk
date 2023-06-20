@@ -33,6 +33,8 @@ local_deps = [
   optional_sub.dependency('optional'),
   expected_sub.dependency('expected'),
 
+  dependency('magic_enum', required: true),
+  dependency('fmt', required: true),
   dependency('spdlog', required: true),
   dependency('glfw3', required: true),
 ]
