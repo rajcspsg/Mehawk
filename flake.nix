@@ -55,6 +55,7 @@
             env = {
               CLANGD_PATH = "${pkgs.clang-tools_15}/bin/clangd";
               ASAN_SYMBOLIZER_PATH = "${pkgs.llvmPackages_15.bintools-unwrapped}/bin/llvm-symbolizer";
+              CXX_LD = "lld";
             };
           };
       };
