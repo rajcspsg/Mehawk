@@ -38,7 +38,7 @@
               libglvnd
 
               pkgs.nixgl.auto.nixGLDefault
-              llvmPackages_15.bintools-unwrapped
+              llvmPackages_15.bintools
               clang-tools_15
               cmake
               pkg-config
