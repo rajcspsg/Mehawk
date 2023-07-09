@@ -1,5 +1,5 @@
 project(
-  'haumea',
+  'telesto',
   [ 'c', 'cpp' ],
   version : '0.1.0',
   meson_version : '>= 0.63.0',
@@ -39,7 +39,7 @@ local_deps = [
   dependency('glfw3', required: true),
 ]
 
-haumea_compilation_options = [
+telesto_compilation_options = [
   'cpp_std=c++20'
 ]
 
@@ -49,7 +49,7 @@ include_dirs = [
 
 sources = files()
 
-haumea_dep = declare_dependency(
+telesto_dep = declare_dependency(
   sources: sources,
   dependencies: local_deps,
   include_directories: include_dirs,

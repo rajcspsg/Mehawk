@@ -1,12 +1,12 @@
 sources = files(
   'main.cpp',
-  'glad.c',
+  'glad.c'
 )
 
 executable(
-  'haumea',
+  'telesto',
   sources: sources,
-  dependencies: haumea_dep,
-  override_options: haumea_compilation_options,
+  dependencies: telesto_dep,
+  override_options: telesto_compilation_options,
   install: true
 )

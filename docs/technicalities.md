@@ -1,4 +1,4 @@
-# Haumea technicalities
+# Telesto technicalities
 
 ## Tools used
 

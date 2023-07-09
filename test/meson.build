@@ -2,17 +2,18 @@ local_deps = [
   dependency('catch2-with-main', required: true),
 ]
 
-test_sources = files('test.cpp')
+test_sources = files('env.cpp')
 
 test_exe = executable(
-  'haumea_test',
+  'telesto_test',
   test_sources,
-  dependencies: [ haumea_dep, local_deps ],
-  override_options: haumea_compilation_options
+  include_directories: include_directories('.'),
+  dependencies: [ telesto_dep, local_deps ],
+  override_options: telesto_compilation_options
 )
 
 tests = [
-  'True equals true'
+  'Empty optional on non-existent env variable',
 ]
 
 foreach test : tests
