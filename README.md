@@ -1,6 +1,6 @@
-# Haumea 🪐
+# Telesto 🪐
 
-Haumea is a discord overlay app named after a dwarf planet in our solar system.
+Telesto is a discord overlay app named after a Saturn moon.
 
 The original idea behind this app was to serve as an overlay for Discord, but this requires self-botting.
 Since Discord is not very keen on self bots I feel like this project should be pushed a little bit forward.
