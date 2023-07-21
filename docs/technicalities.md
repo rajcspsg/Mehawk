@@ -14,7 +14,7 @@
 - **Build system** - Meson >= 0.63.0
 
 - **Utility**:
-  - Nix 23.05 (reproducibility, environments and such)
+  - Nix 2.16.1 (reproducibility, environments and such)
   - Just 1.13.0 (command runner)
 
 ## Key features
