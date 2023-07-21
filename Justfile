@@ -31,15 +31,15 @@ compile-release: meson-exists
 
 alias rd := run-debug
 run-debug: nixgl-exists
-	nixGL {{ debug_build_dir }}/src/telesto
+	nixGL {{ debug_build_dir }}/src/mehawk
 
 alias rr := run-release
 run-release: nixgl-exists
-	nixGL {{ release_build_dir }}/src/telesto
+	nixGL {{ release_build_dir }}/src/mehawk
 
 alias t := test
 test: meson-exists
-	./build_debug/test/telesto_test
+	./build_debug/test/mehawk_test
 
 alias ct := compile-and-test
 compile-and-test: meson-exists compile-debug && test

@@ -1,5 +1,5 @@
 project(
-  'telesto',
+  'mehawk',
   [ 'c', 'cpp' ],
   version : '0.1.0',
   meson_version : '>= 0.63.0',
@@ -39,7 +39,7 @@ local_deps = [
   dependency('glfw3', required: true),
 ]
 
-telesto_compilation_options = [
+mehawk_compilation_options = [
   'cpp_std=c++20'
 ]
 
@@ -47,9 +47,11 @@ include_dirs = [
   include_directories('include')
 ]
 
-sources = files()
+sources = files(
+  'src/env.cpp'
+)
 
-telesto_dep = declare_dependency(
+mehawk_dep = declare_dependency(
   sources: sources,
   dependencies: local_deps,
   include_directories: include_dirs,

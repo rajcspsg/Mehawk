@@ -5,11 +5,11 @@ local_deps = [
 test_sources = files('env.cpp')
 
 test_exe = executable(
-  'telesto_test',
+  'mehawk_test',
   test_sources,
   include_directories: include_directories('.'),
-  dependencies: [ telesto_dep, local_deps ],
-  override_options: telesto_compilation_options
+  dependencies: [ mehawk_dep, local_deps ],
+  override_options: mehawk_compilation_options
 )
 
 tests = [

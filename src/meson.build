@@ -4,9 +4,9 @@ sources = files(
 )
 
 executable(
-  'telesto',
+  'mehawk',
   sources: sources,
-  dependencies: telesto_dep,
-  override_options: telesto_compilation_options,
+  dependencies: mehawk_dep,
+  override_options: mehawk_compilation_options,
   install: true
 )
