@@ -20,10 +20,10 @@
 ## Key features
 
 - Overlay for given text/voice chats
+- System for changing the layout of the application and being able to add several sources of messages and stuff (like being able to have voice chat from discord, matrix chat along discord chat etc.)
 - Ability to filter messages and users in the overlay
-- Potentially ability to display images/gifs/files in _some_ way
+- Embeds, videos, images and stuff are supposed to be concealed by default, but potentially they could be also shown somehow
 - Better notifications, also ability to set *watches* (that is - notifications for new messages in certain channels)
-- Moving the overlay
-- Overlay is transparent generally but can be enabled to be not-transparent and clickable
-- Vim keybinds
-- Ability to type a message
+- Some global keybind to toggle the passthrough of the window
+- Vim keybinds (clicking links, stuff)
+- Ability to type a message possibly
