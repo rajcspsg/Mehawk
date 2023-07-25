@@ -102,3 +102,17 @@ The notifications should be highly customizable.
 ### Message ???
 
 It is still undecided, but mehawk will possibly have an ability to type and send basic messages for various sources.
+
+## Architecture
+
+This is only a vague overview of the architecture and some matters I need to figure out myself.
+The general plan and specifics are subject to constant changes.
+
+Main `Mehawk` class  
+
+Figure out:
+  - [ ] The kernel architecture and plugin systems.
+  - [ ] File watching.
+  - [ ] Hot-reloading.
+  - [ ] Font rendering.
+  - [ ] Layout system.
