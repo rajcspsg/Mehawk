@@ -3,27 +3,77 @@
 ## Tools used
 
 - **Programming language** - C++20 with:
-  - dpp 10.0.23 (for discord, a [**patched version**](../subprojects/packagefiles/dpp/dpp-selfbot.patch) that allows for self-botting)
-  - spdlog 1.11.0 (for logging)
-  - opengl:
+  - dpp 10.0.23 ([**patched version**](../subprojects/packagefiles/dpp/dpp-selfbot.patch) that allows for self-botting)
+  - spdlog 1.11.0
+  - opengl 4.6:
     - glfw 3.3.8
-    - glad 0.1.36 (gl 3.3, compatibility)
-  - catch2 3.2.0 (for unit tests)
-  - libassert v1.1 (for awesome asserts)
+    - glad 0.1.36
+  - catch2 3.2.0
+  - libassert v1.1
 
 - **Build system** - Meson >= 0.63.0
 
 - **Utility**:
-  - Nix 2.16.1 (reproducibility, environments and such)
-  - Just 1.13.0 (command runner)
+  - Nix 2.16.1
+  - Just 1.13.0
 
-## Key features
+## Libraries overview
 
-- Overlay for given text/voice chats
-- System for changing the layout of the application and being able to add several sources of messages and stuff (like being able to have voice chat from discord, matrix chat along discord chat etc.)
-- Ability to filter messages and users in the overlay
-- Embeds, videos, images and stuff are supposed to be concealed by default, but potentially they could be also shown somehow
-- Better notifications, also ability to set *watches* (that is - notifications for new messages in certain channels)
-- Some global keybind to toggle the passthrough of the window
-- Vim keybinds (clicking links, stuff)
-- Ability to type a message possibly
+The rendering parts of the app are handled by **glfw** and **glad**. There's no GUI library, all rendering
+is done by hand using OpenGL with these two libraries.
+
+The discord communication is done with a patched version of **dpp**, although there are plans to move to a
+custom, smaller version.
+
+Testing is done via **catch2**.
+
+Other utility libraries include:
+  - **spdlog** for nice logs
+  - **libassert** for nice asserts
+  - **expected** for C++23's actually working `<expected>`
+  - **optional** for a better optional with monadic operations
+  - **magic_enum** for useful enum operations, mostly used in tests
+
+## Overview
+
+### General
+
+Mehawk is supposed to be an overlay application for many services.
+For now only IRC, Discord and Matrix are planned.
+
+### Plugin support
+
+For now it is unclear if support for each platform is going to be implemented with plugins (luajit) or directly in C++.
+
+### UI
+
+The UI is supposed to be transparent and oblivious to mouse input, unless a certain global key combination is pressed.
+If it is, input mode is activated, in which the window is focused and responds to both mouse and key inputs.
+
+In the input mode, the user would be able to use vim-like keybindings to navigate the view.
+
+#### Layouts
+
+The UI is supposed to be flexible and allow the user for creating it's own layouts (for example, the user may wish to
+see active participants in currently joined discord voice chat on the left, as well as a matrix chat along some discord channel chat).
+
+#### Embeddables
+
+Images, gifs, videos, files, and all other embeds are together called **embeddables**.
+By default they are hidden behind their own label (\<image>, \<gif>, etc.), but can be enabled to be displayed
+in the settings.
+
+#### Formatting
+
+All formatting should be respected.
+
+### Notifications
+
+Mehawk should be also able spawn a custom notification daemon.
+It is useful if, for example, someone wishes to have **Do Not Disturb** status on discord, which completely removes notifications,
+but waits for response/message from some channels.
+The notifications should be highly customizable.
+
+### Message ???
+
+It is still undecided, but mehawk will possibly have an ability to type and send basic messages for various sources.
