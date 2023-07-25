@@ -91,6 +91,10 @@ in the settings.
 
 All formatting should be respected.
 
+#### Themes
+
+Some parts of the rendered output can also be altered by custom themes provided by the user.
+
 ### Notifications
 
 Mehawk should be also able spawn a custom notification daemon.
