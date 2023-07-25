@@ -3,7 +3,7 @@
 ## Tools used
 
 - **Programming language** - C++20 with:
-  - dpp 10.0.23 (for discord, a patched version that allows for self-botting)
+  - dpp 10.0.23 (for discord, a [**patched version**](../subprojects/packagefiles/dpp/dpp-selfbot.patch) that allows for self-botting)
   - spdlog 1.11.0 (for logging)
   - opengl:
     - glfw 3.3.8
