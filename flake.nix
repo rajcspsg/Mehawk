@@ -1,4 +1,6 @@
 {
+  description = "Development flake for Mehawk, an overlay app for many services.";
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/23.05";
     flake-parts.url = "github:hercules-ci/flake-parts";
