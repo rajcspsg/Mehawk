@@ -1,5 +1,12 @@
 # Mehawk technicalities
 
+## Naming
+
+The name is chosen after `Messenger Hawk` from the Avatar: The Last Airbender animated series.
+
+Messenger hawks are merely proxies between two communicating parties, which perfectly describes the purpose of Mehawk:  
+A proxy which displays in a specific way the information sent by another people.
+
 ## Tools used
 
 - **Programming language** - C++20 with:
@@ -41,9 +48,25 @@ Other utility libraries include:
 Mehawk is supposed to be an overlay application for many services.
 For now only IRC, Discord and Matrix are planned.
 
+### Interface
+
+The main mehawk interface of mehawk is supposed to be the GUI.
+It is however supposed to be possible to carry out some actions using the command-line interface.
+
+For now:
+  - Executing some queries and mofifications on the config.
+  - Sending commands to the running notification and overlay daemon.
+
 ### Plugin support
 
 For now it is unclear if support for each platform is going to be implemented with plugins (luajit) or directly in C++.
+
+### Hot-reloadable config
+
+Mehawk should have a hot-reloadable config in form of a `TOML` file.
+The config should be editable from an additionally spawned GUI window,
+but there is also supposed to be a watch, which would reload on config file changes
+(assuming the config is correct, if not, an error should arise).
 
 ### UI
 
@@ -55,7 +78,8 @@ In the input mode, the user would be able to use vim-like keybindings to navigat
 #### Layouts
 
 The UI is supposed to be flexible and allow the user for creating it's own layouts (for example, the user may wish to
-see active participants in currently joined discord voice chat on the left, as well as a matrix chat along some discord channel chat).
+see active participants in currently joined discord voice chat on the left,
+as well as a matrix chat along some discord channel chat).
 
 #### Embeddables
 
@@ -70,8 +94,9 @@ All formatting should be respected.
 ### Notifications
 
 Mehawk should be also able spawn a custom notification daemon.
-It is useful if, for example, someone wishes to have **Do Not Disturb** status on discord, which completely removes notifications,
-but waits for response/message from some channels.
+It is useful if, for example, someone wishes to have **Do Not Disturb** status on discord,
+which completely removes notifications, but waits for response/message from some channels.
+
 The notifications should be highly customizable.
 
 ### Message ???
