@@ -25,7 +25,8 @@
 
         formatter = pkgs.alejandra;
 
-        devShells.default = pkgs.mkShell.override {
+        devShells.default =
+          pkgs.mkShell.override {
             stdenv = pkgs.lowPrio pkgs.llvmPackages_15.stdenv;
           } {
             buildInputs = with pkgs; [
