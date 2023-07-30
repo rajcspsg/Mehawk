@@ -107,6 +107,10 @@ The notifications should be highly customizable.
 
 It is still undecided, but mehawk will possibly have an ability to type and send basic messages for various sources.
 
+### Other niceities
+
+Pings should reside at the top of the overlay for a chosen period of time.
+
 ## Architecture
 
 This is only a vague overview of the architecture and some matters I need to figure out myself.
