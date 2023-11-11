@@ -44,11 +44,11 @@ mehawk_compilation_options = [
 ]
 
 include_dirs = [
-  include_directories('include')
+  include_directories('src')
 ]
 
 sources = files(
-  'src/env.cpp'
+  'src/mehawk/env.cpp'
 )
 
 mehawk_dep = declare_dependency(

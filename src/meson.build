@@ -1,6 +1,7 @@
 sources = files(
-  'main.cpp',
-  'glad.c'
+  'glad/glad.c',
+
+  'mehawk/main.cpp'
 )
 
 executable(
