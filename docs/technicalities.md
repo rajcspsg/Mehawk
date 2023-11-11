@@ -119,9 +119,11 @@ The general plan and specifics are subject to constant changes.
 Main `Mehawk` class  
 
 Figure out:
-  - [ ] Extreme programming, CI and open source
-  - [ ] The kernel architecture and plugin systems.
-  - [ ] File watching.
-  - [ ] Hot-reloading.
   - [ ] Font rendering.
+  - [ ] Hot-reloading.
+    - [ ] File watching.
   - [ ] Layout system.
+  - [ ] The kernel architecture and plugin system.
+    https://nullderef.com/blog/plugin-tech/
+
+https://www.12factor.net/
