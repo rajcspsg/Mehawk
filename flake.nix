@@ -27,7 +27,7 @@
 
         devShells.default =
           pkgs.mkShell.override {
-            stdenv = pkgs.lowPrio pkgs.llvmPackages_15.stdenv;
+            stdenv = pkgs.clang16Stdenv;
           } {
             buildInputs = with pkgs; [
               ### opengl and x11
@@ -41,8 +41,8 @@
               libglvnd
 
               pkgs.nixgl.auto.nixGLDefault
-              llvmPackages_15.bintools
-              clang-tools_15
+              llvmPackages_16.bintools
+              clang-tools_16
               cmake
               pkg-config
 
@@ -52,12 +52,12 @@
 
               openssl
               python311
-              gtkmm4
+              zlib
             ];
 
             env = {
-              CLANGD_PATH = "${pkgs.clang-tools_15}/bin/clangd";
-              ASAN_SYMBOLIZER_PATH = "${pkgs.llvmPackages_15.bintools-unwrapped}/bin/llvm-symbolizer";
+              CLANGD_PATH = "${pkgs.clang-tools_16}/bin/clangd";
+              ASAN_SYMBOLIZER_PATH = "${pkgs.llvmPackages_16.bintools-unwrapped}/bin/llvm-symbolizer";
               CXX_LD = "lld";
             };
           };
