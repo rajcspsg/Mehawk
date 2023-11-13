@@ -1,6 +1,7 @@
-#include <spdlog/spdlog.h>
+#include <mehawk/app.hpp>
 
-auto main() -> int
+auto main(int argc, char** argv) -> int
 {
-  spdlog::info("Hello, World!");
+  auto app = App();
+  return app.run(argc, argv);
 }
