@@ -2,10 +2,10 @@
 
 ## Naming
 
-The name is chosen after `Messenger Hawk` from the Avatar: The Last Airbender animated series.
+The name is chosen after `Messenger Hawk` from the **Avatar: The Last Airbender** animated series.
 
 Messenger hawks are merely proxies between two communicating parties, which perfectly describes the purpose of Mehawk:  
-A proxy which displays in a specific way the information sent by another people.
+A proxy which displays information sent by another people on some specific messaging platform in an overlay form.
 
 ## Tools used
 
@@ -54,12 +54,12 @@ The main mehawk interface of mehawk is supposed to be the GUI.
 It is however supposed to be possible to carry out some actions using the command-line interface.
 
 For now:
-  - Executing some queries and mofifications on the config.
+  - Executing some queries and modifications on the config.
   - Sending commands to the running notification and overlay daemon.
 
 ### Plugin support
 
-For now it is unclear if support for each platform is going to be implemented with plugins (luajit) or directly in C++.
+For now it is unclear if support for each platform is going to be implemented with plugins (luajit/cyber/buzz/steel/X) or directly in C++.
 
 ### Hot-reloadable config
 
@@ -89,11 +89,11 @@ in the settings.
 
 #### Formatting
 
-All formatting should be respected.
+All platform specific formatting (bolds, italics, spoilers, etc.) should be respected.
 
 #### Themes
 
-Some parts of the rendered output can also be altered by custom themes provided by the user.
+Some parts of the rendered output can also be altered by custom themes provided by the user, format to be decided later.
 
 ### Notifications
 
@@ -121,7 +121,7 @@ Main `Mehawk` class
 Figure out:
   - [ ] Font rendering.
   - [ ] Hot-reloading.
-    - [ ] File watching.
+  - [ ] File watching.
   - [ ] Layout system.
   - [ ] The kernel architecture and plugin system.
     https://nullderef.com/blog/plugin-tech/
