@@ -1,8 +1,5 @@
 #pragma once
 
-namespace hm
-{
-
 // Linux > Mac > Windows btw.
 enum class OperatingSystem
 {
@@ -24,5 +21,3 @@ enum class OperatingSystem
 #endif
 
 };
-
-} // namespace hm

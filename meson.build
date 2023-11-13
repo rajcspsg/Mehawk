@@ -48,7 +48,8 @@ include_dirs = [
 ]
 
 sources = files(
-  'src/mehawk/env.cpp'
+  'src/mehawk/env.cpp',
+  'src/mehawk/app.cpp'
 )
 
 mehawk_dep = declare_dependency(

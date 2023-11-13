@@ -6,8 +6,7 @@
 
 #include <tl/expected.hpp>
 
-namespace hm
-{
+#include <mehawk/os_detection.hpp>
 
 class StandardPaths
 {
@@ -18,20 +17,11 @@ public:
     System
   };
 
-  enum class Type
-  {
-    Config,
-    Data,
-    Cache
-  };
-
   enum class RetrievalError
   {
+#ifndef OS_WINDOWS
     NoHomeVariable,
-
-    NoProgramDataVariable,
-    NoAppDataVariable,
-    NoLocalAppDataVariable,
+#endif
   };
 
   struct Paths
@@ -47,31 +37,28 @@ public:
    * @brief Returns a standard log path for host os
    *
    * @param scope If the path should be for an user or the entire system
-   * @param type The type of the path
    *
    * @description
    * Type config:
-   *  - Linux: $XDG_CONFIG_HOME (defaults to $HOME/.config) (for both User and System)
-   *  - Mac: $HOME/Library/Preferences (for both User and System)
+   *  - Linux: $XDG_CONFIG_HOME (defaults to $HOME/.config) (only User)
+   *  - Mac: $HOME/Library/Preferences (only User)
    *  - Windows:
    *    - User: %APPDATA%
    *    - System: %ProgramData%
    *
    * Type data:
    *  - Linux: $XDG_DATA_HOME (defaults to $HOME/.local/share)
-   *  - Mac: $Home/Library/Application Support (for both User and System)
+   *  - Mac: $Home/Library/Application Support (only User)
    *  - Windows:
    *    - User: %APPDATA%
    *    - System: %ProgramData%
    *
    * Type cache:
-   *  - Linux: $XDG_CACHE_HOME (defaults to $HOME/.cache) (for both User and System)
-   *  - Mac: $HOME/Library/Cache (for both User and System)
+   *  - Linux: $XDG_CACHE_HOME (defaults to $HOME/.cache) (only User)
+   *  - Mac: $HOME/Library/Cache (only User)
    *  - Windows:
    *    - User: %LOCALAPPDATA%
    *    - System: %ProgramData%
    */
-  static auto get(Scope scope, Type type) -> GetResult;
+  static auto get(Scope const scope) -> GetResult;
 };
-
-} // namespace hm
