@@ -10,7 +10,6 @@ test_exe = executable(
   include_directories: include_directories('.'),
   dependencies: [ mehawk_dep, local_deps ],
   override_options: mehawk_compilation_options,
-  cpp_pch: '../src/mehawk/pch.hpp'
 )
 
 tests = [
