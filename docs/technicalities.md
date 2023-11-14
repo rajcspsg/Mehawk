@@ -121,9 +121,9 @@ Main `Mehawk` class
 Figure out:
   - [ ] Font rendering.
   - [ ] Hot-reloading.
-  - [ ] File watching.
+  - [ ] File watching (NOTE: Symlinks are not supported. I will consider adding support once users request.)
   - [ ] Layout system.
   - [ ] The kernel architecture and plugin system.
-    https://nullderef.com/blog/plugin-tech/
 
-https://www.12factor.net/
+  https://nullderef.com/blog/plugin-tech/
+  https://www.12factor.net/
