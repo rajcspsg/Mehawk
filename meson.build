@@ -24,6 +24,7 @@ dpp_sub = cmake.subproject('dpp', options: build_type_opts, required: true)
 libassert_sub = cmake.subproject('libassert', options: build_type_opts, required: true)
 optional_sub = cmake.subproject('optional', options: build_type_opts, required: true)
 expected_sub = cmake.subproject('expected', options: build_type_opts, required: true)
+efsw_sub = cmake.subproject('efsw', options: build_type_opts, required: true)
 
 local_deps = [
   dependency('threads', required: true),
@@ -32,6 +33,7 @@ local_deps = [
   libassert_sub.dependency('assert'),
   optional_sub.dependency('optional'),
   expected_sub.dependency('expected'),
+  efsw_sub.dependency('efsw'),
 
   dependency('magic_enum', required: true),
   dependency('fmt', required: true),
