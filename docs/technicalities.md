@@ -17,6 +17,7 @@ A proxy which displays information sent by another people on some specific messa
     - glad 0.1.36
   - catch2 3.2.0
   - libassert v1.1
+  - efsw v1.3.1
 
 - **Build system** - Meson >= 0.63.0
 
