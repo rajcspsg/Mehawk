@@ -4,8 +4,6 @@ debug_build_dir := "build_debug"
 default:
 	@just --list
 
-
-
 meson-exists:
 	@if ! which meson 1>/dev/null 2>&1; then echo 'Cannot find meson executable'; exit 1; fi
 
