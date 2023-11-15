@@ -6,6 +6,8 @@
 #include <string>
 #include <ranges>
 
+#include <spdlog/spdlog.h>
+
 #include <tl/expected.hpp>
 #include <tl/optional.hpp>
 
@@ -17,7 +19,8 @@
 namespace
 {
 
-using HomeDirResult = tl::optional<std::string_view>;
+using PathType = std::filesystem::path;
+using HomeDirResult = tl::optional<PathType>;
 
 auto safe_getenv(char const* name) -> HomeDirResult
 {
@@ -34,7 +37,7 @@ auto safe_getenv(char const* name) -> HomeDirResult
   #include <pwd.h>
 
 // NOTE: This function is not reentrant due to using getpwnam inside (which means it cannot be called in a signal and it's not thread safe)
-auto get_home() -> std::string_view
+auto get_home() -> PathType
 {
   static auto const home = safe_getenv("HOME").or_else([]() -> HomeDirResult {
     auto const uid = getuid();
@@ -57,14 +60,14 @@ auto get_linux_standard_paths() -> StandardPaths::GetResult
 
   static auto const home = get_home();
 
-  static auto const config_path = safe_getenv("XDG_CONFIG_HOME").conjunction(fs::path(home) / ".config");
-  static auto const data_path = safe_getenv("XDG_DATA_HOME").conjunction(fs::path(home) / ".local/share");
-  static auto const cache_path = safe_getenv("XDG_CACHE_HOME").conjunction(fs::path(home) / ".cache");
+  static auto const config_path = safe_getenv("XDG_CONFIG_HOME").value_or(fs::path(home) / ".config");
+  static auto const data_path = safe_getenv("XDG_DATA_HOME").value_or(fs::path(home) / ".local/share");
+  static auto const cache_path = safe_getenv("XDG_CACHE_HOME").value_or(fs::path(home) / ".cache");
 
   return StandardPaths::Paths {
-    .config = *config_path,
-    .data = *data_path,
-    .cache = *cache_path,
+    .config = config_path,
+    .data = data_path,
+    .cache = cache_path,
   };
 }
 
@@ -107,17 +110,19 @@ auto StandardPaths::get(GetOption const option) -> GetResult
     get_windows_standard_paths();
 #endif
 
+  spdlog::error("{}", paths.value().data.string());
+
   if(option != GetOption::IncludeAppFolder) {
     return paths;
   }
 
   return paths.map([](Paths const& paths) {
-    auto const app_name = config::app_name();
+    auto const app_folder = config::app_name() + "/";
 
     return StandardPaths::Paths {
-      .config = paths.config / app_name,
-      .data = paths.data / app_name,
-      .cache = paths.cache / app_name
+      .config = paths.config / app_folder,
+      .data = paths.data / app_folder,
+      .cache = paths.cache / app_folder
     };
   });
 }
