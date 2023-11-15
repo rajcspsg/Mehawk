@@ -24,7 +24,8 @@ auto safe_getenv(char const* name) -> HomeDirResult
   auto* const result = std::getenv(name);
 
   if(result) return { result };
-  else return {};
+
+  return {};
 }
 
 #ifdef OS_LINUX
