@@ -89,7 +89,7 @@ auto get_mac_standard_paths() -> hm::StandardPaths::GetResult
 #elif defined(OS_WINDOWS)
 auto get_windows_standard_paths() -> hm::StandardPaths::GetResult
 {
-  UNIMPLEMENTED
+  unimplemented();
 }
 #endif
 

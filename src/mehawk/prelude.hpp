@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <assert.hpp>
 
-/// This function immediately stops the application, useful for optimization and warning silencing in cases in which the compiler is trippin
+/// Stops the application, useful for optimization and warning silencing in cases in which the compiler is trippin
 [[noreturn]] inline auto unreachable() noexcept -> void
 {
 #ifdef __GNUC__ // GCC, Clang, ICC
@@ -13,6 +13,14 @@
 #elif defned(_MSC_VER)
   __assume(false);
 #endif
+}
+
+/// Stops the application, and signals that a certain path is not implemented.
+[[noreturn]] inline auto unimplemented() noexcept -> void
+{
+  // TODO: figure out how to instruct clang-tidy to nolint all of these macros
+  ASSERT(false, "Unimplemented."); // NOLINT
+  unreachable();
 }
 
 namespace impl
@@ -25,7 +33,8 @@ public:
   constexpr explicit DistinctType() = default;
 
   template<typename T>
-  constexpr explicit DistinctType(T&& data)
+    requires(not std::same_as<T, DistinctType>)
+  constexpr explicit DistinctType(T&& data) // NOLINT
     : data(static_cast<T&&>(data))
   {}
 
@@ -43,6 +52,7 @@ private:
 
 } // namespace impl
 
-#define MH_UNIMPLEMENTED (ASSERT(false, "Unimplemented."), unreachable())
+// NOLINTBEGIN(cppcoreguidelines-macro-usage)
 #define MH_TRAP(...) (ASSERT(false, "This should never happen.\n" #__VA_ARGS__), unreachable())
 #define DISTINCT(Type) impl::DistinctType<Type, [] {}>
+// NOLINTEND(cppcoreguidelines-macro-usage)
