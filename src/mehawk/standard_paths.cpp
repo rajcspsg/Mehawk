@@ -21,7 +21,7 @@ using HomeDirResult = tl::optional<std::string_view>;
 
 auto safe_getenv(char const* name) -> HomeDirResult
 {
-  auto const result = std::getenv(name);
+  auto* const result = std::getenv(name);
 
   if(result) return { result };
   else return {};
@@ -37,7 +37,7 @@ auto get_home() -> std::string_view
 {
   static auto const home = safe_getenv("HOME").or_else([]() -> HomeDirResult {
     auto const uid = getuid();
-    auto const passwd = getpwuid(uid);
+    auto* const passwd = getpwuid(uid);
 
     if(not passwd or not passwd->pw_dir) return {};
 
