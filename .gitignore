@@ -15,6 +15,7 @@
 !.clang-format
 !.clang-tidy
 
+!.deepsource.toml
 !.envrc
 !flake.lock
 !flake.nix

@@ -1,0 +1,9 @@
+version = 1
+
+exclude_patterns = [
+  "src/glad/*",
+  "src/KHR/*",
+]
+
+[[analyzers]]
+name = "cxx"
