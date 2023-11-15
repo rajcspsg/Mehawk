@@ -11,12 +11,6 @@
 class StandardPaths
 {
 public:
-  enum class Scope
-  {
-    User,
-    System
-  };
-
   enum class RetrievalError
   {
 #ifndef OS_WINDOWS
@@ -34,31 +28,23 @@ public:
   using GetResult = tl::expected<Paths, RetrievalError>;
 
   /**
-   * @brief Returns a standard log path for host os
-   *
-   * @param scope If the path should be for an user or the entire system
+   * @brief Returns a standard user-local path for host os
    *
    * @description
-   * Type config:
-   *  - Linux: $XDG_CONFIG_HOME (defaults to $HOME/.config) (only User)
-   *  - Mac: $HOME/Library/Preferences (only User)
-   *  - Windows:
-   *    - User: %APPDATA%
-   *    - System: %ProgramData%
+   * Config:
+   *  - Linux: $XDG_CONFIG_HOME (defaults to $HOME/.config)
+   *  - Mac: $HOME/Library/Preferences
+   *  - Windows: %APPDATA%
    *
-   * Type data:
+   * Data:
    *  - Linux: $XDG_DATA_HOME (defaults to $HOME/.local/share)
-   *  - Mac: $Home/Library/Application Support (only User)
-   *  - Windows:
-   *    - User: %APPDATA%
-   *    - System: %ProgramData%
+   *  - Mac: $Home/Library/Application Support
+   *  - Windows: %APPDATA%
    *
-   * Type cache:
-   *  - Linux: $XDG_CACHE_HOME (defaults to $HOME/.cache) (only User)
-   *  - Mac: $HOME/Library/Cache (only User)
-   *  - Windows:
-   *    - User: %LOCALAPPDATA%
-   *    - System: %ProgramData%
+   * Cache:
+   *  - Linux: $XDG_CACHE_HOME (defaults to $HOME/.cache)
+   *  - Mac: $HOME/Library/Cache
+   *  - Windows: %LOCALAPPDATA%
    */
-  static auto get(Scope const scope) -> GetResult;
+  static auto get() -> GetResult;
 };

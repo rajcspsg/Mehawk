@@ -11,6 +11,7 @@
 
 #include <mehawk/standard_paths.hpp>
 #include <mehawk/os_detection.hpp>
+#include <mehawk/prelude.hpp>
 
 namespace
 {
@@ -77,15 +78,15 @@ auto get_mac_standard_paths() -> hm::StandardPaths::GetResult
   static auto const data_path = fs::path(home) / "Library/Application Support";
   static auto const cache_path = fs::path(home) / "Library/Caches";
 
-  return { hm::StandardPaths::Paths {
+  return hm::StandardPaths::Paths {
     .config = config_path,
     .data = data_path,
     .cache = cache_path,
-  } };
+  };
 }
 
 #elif defined(OS_WINDOWS)
-auto get_windows_standard_paths(std::string_view scope) -> hm::StandardPaths::GetResult
+auto get_windows_standard_paths() -> hm::StandardPaths::GetResult
 {
   UNIMPLEMENTED
 }
@@ -93,14 +94,13 @@ auto get_windows_standard_paths(std::string_view scope) -> hm::StandardPaths::Ge
 
 } // namespace
 
-auto StandardPaths::get(Scope scope) -> GetResult
+auto StandardPaths::get() -> GetResult
 {
-// NOTE: we explicitly ignore the scope for linux & mac
 #ifdef OS_LINUX
   return get_linux_standard_paths();
 #elif defined(OS_MAC)
   return get_mac_standard_paths();
 #else
-  return get_windows_standard_paths(scope);
+  return get_windows_standard_paths();
 #endif
 }
