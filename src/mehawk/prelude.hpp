@@ -15,11 +15,6 @@
 #endif
 }
 
-/// @tparam Type Type of the raw (C) array
-/// @tparam Size Size of the raw (C) array
-template<typename Type, std::size_t Size>
-using RawArray = Type[Size];
-
 namespace impl
 {
 
