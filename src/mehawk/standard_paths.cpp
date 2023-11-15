@@ -10,6 +10,7 @@
 #include <tl/optional.hpp>
 
 #include <mehawk/standard_paths.hpp>
+#include <mehawk/global_config.hpp>
 #include <mehawk/os_detection.hpp>
 #include <mehawk/prelude.hpp>
 
@@ -94,13 +95,28 @@ auto get_windows_standard_paths() -> hm::StandardPaths::GetResult
 
 } // namespace
 
-auto StandardPaths::get() -> GetResult
+auto StandardPaths::get(GetOption const option) -> GetResult
 {
+  auto paths =
 #ifdef OS_LINUX
-  return get_linux_standard_paths();
+    get_linux_standard_paths();
 #elif defined(OS_MAC)
-  return get_mac_standard_paths();
+    get_mac_standard_paths();
 #else
-  return get_windows_standard_paths();
+    get_windows_standard_paths();
 #endif
+
+  if(option != GetOption::IncludeAppFolder) {
+    return paths;
+  }
+
+  return paths.map([](Paths const& paths) {
+    auto const app_name = config::app_name();
+
+    return StandardPaths::Paths {
+      .config = paths.config / app_name,
+      .data = paths.data / app_name,
+      .cache = paths.cache / app_name
+    };
+  });
 }

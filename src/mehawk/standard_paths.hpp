@@ -18,6 +18,12 @@ public:
 #endif
   };
 
+  enum class GetOption
+  {
+    None,
+    IncludeAppFolder
+  };
+
   struct Paths
   {
     std::filesystem::path config;
@@ -46,5 +52,5 @@ public:
    *  - Mac: $HOME/Library/Cache
    *  - Windows: %LOCALAPPDATA%
    */
-  static auto get() -> GetResult;
+  static auto get(GetOption const options = GetOption::None) -> GetResult;
 };
