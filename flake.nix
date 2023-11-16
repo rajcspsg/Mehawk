@@ -3,7 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/23.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     flake-parts.url = "github:hercules-ci/flake-parts";
+
     nixgl.url = "github:guibou/nixGL";
   };
 
@@ -20,7 +23,10 @@
       }: {
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
-          overlays = [inputs.nixgl.overlay];
+          overlays = [
+            inputs.nixgl.overlay
+            (new: prev: { gf = inputs'.nixpkgs-unstable.legacyPackages.gf; })
+          ];
         };
 
         formatter = pkgs.alejandra;
@@ -30,7 +36,6 @@
             stdenv = pkgs.clang16Stdenv;
           } {
             buildInputs = with pkgs; [
-              ### opengl and x11
               xorg.libX11
               xorg.libXrandr
               xorg.libXinerama
@@ -45,6 +50,8 @@
               clang-tools_16
               cmake
               pkg-config
+
+              gf
 
               just
               ninja
