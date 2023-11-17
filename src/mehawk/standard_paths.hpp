@@ -18,7 +18,7 @@ public:
 #endif
   };
 
-  enum class GetOption
+  enum class GetBehaviour
   {
     None,
     IncludeAppFolder
@@ -52,5 +52,5 @@ public:
    *  - Mac: $HOME/Library/Cache
    *  - Windows: %LOCALAPPDATA%
    */
-  static auto get(GetOption const options = GetOption::None) -> GetResult;
+  static auto get(GetBehaviour const options = GetBehaviour::None) -> GetResult;
 };

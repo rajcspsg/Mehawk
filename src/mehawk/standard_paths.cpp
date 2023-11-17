@@ -99,7 +99,7 @@ auto get_windows_standard_paths() -> hm::StandardPaths::GetResult
 
 } // namespace
 
-auto StandardPaths::get(GetOption const option) -> GetResult
+auto StandardPaths::get(GetBehaviour const option) -> GetResult
 {
   auto paths =
 #ifdef OS_LINUX
@@ -112,7 +112,7 @@ auto StandardPaths::get(GetOption const option) -> GetResult
 
   spdlog::error("{}", paths.value().data.string());
 
-  if(option != GetOption::IncludeAppFolder) {
+  if(option != GetBehaviour::IncludeAppFolder) {
     return paths;
   }
 
