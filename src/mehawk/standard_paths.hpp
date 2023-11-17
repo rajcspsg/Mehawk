@@ -18,12 +18,6 @@ public:
 #endif
   };
 
-  enum class GetBehaviour
-  {
-    None,
-    IncludeAppFolder
-  };
-
   struct Paths
   {
     std::filesystem::path config;
@@ -33,6 +27,12 @@ public:
 
   using GetResult = tl::expected<Paths, RetrievalError>;
 
+  enum class IncludeAppFolderTag
+  {
+    Set,
+    Unset
+  };
+  inline static auto constexpr IncludeAppFolder = IncludeAppFolderTag::Set;
   /**
    * @brief Returns a standard user-local path for host os
    *
@@ -52,5 +52,5 @@ public:
    *  - Mac: $HOME/Library/Cache
    *  - Windows: %LOCALAPPDATA%
    */
-  static auto get(GetBehaviour const options = GetBehaviour::None) -> GetResult;
+  static auto get(IncludeAppFolderTag tag = IncludeAppFolderTag::Unset) -> GetResult;
 };

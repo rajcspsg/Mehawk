@@ -16,7 +16,7 @@ namespace
 /// application log format, etc..
 auto setup_logs() -> void
 {
-  auto standard_paths = StandardPaths::get(StandardPaths::GetBehaviour::IncludeAppFolder);
+  auto standard_paths = StandardPaths::get(StandardPaths::IncludeAppFolder);
 
   if(not standard_paths.has_value()) {
     auto const error = standard_paths.error();
