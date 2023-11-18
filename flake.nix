@@ -31,14 +31,15 @@
           pkgs.libGL
           pkgs.libglvnd
 
-          pkgs.llvmPackages_16.bintools
-          pkgs.clang-tools_16
+          pkgs.llvmPackages_15.bintools
+          pkgs.clang-tools_15
           pkgs.cmake
           pkgs.pkg-config
 
           pkgs.just
           pkgs.ninja
           pkgs.meson
+          pkgs.git
 
           pkgs.openssl
           pkgs.python311
@@ -49,7 +50,7 @@
           inherit system;
           overlays = [
             inputs.nixgl.overlay
-            (new: prev: {gf = inputs'.nixpkgs-unstable.legacyPackages.gf;})
+            (new: prev: { gf = inputs'.nixpkgs-unstable.legacyPackages.gf; })
           ];
         };
 
@@ -57,7 +58,7 @@
 
         devShells.default =
           pkgs.mkShell.override {
-            stdenv = pkgs.clang16Stdenv;
+            stdenv = pkgs.clang15Stdenv;
           } {
             buildInputs =
               mehawkBuildInputs
@@ -67,8 +68,8 @@
               ];
 
             env = {
-              CLANGD_PATH = "${pkgs.clang-tools_16}/bin/clangd";
-              ASAN_SYMBOLIZER_PATH = "${pkgs.llvmPackages_16.bintools-unwrapped}/bin/llvm-symbolizer";
+              CLANGD_PATH = "${pkgs.clang-tools_15}/bin/clangd";
+              ASAN_SYMBOLIZER_PATH = "${pkgs.llvmPackages_15.bintools-unwrapped}/bin/llvm-symbolizer";
               CXX_LD = "lld";
             };
           };
