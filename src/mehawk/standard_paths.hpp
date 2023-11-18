@@ -10,6 +10,13 @@
 
 class StandardPaths
 {
+private:
+  enum class IncludeAppFolderTag
+  {
+    Set,
+    Unset
+  };
+
 public:
   enum class RetrievalError
   {
@@ -27,11 +34,6 @@ public:
 
   using GetResult = tl::expected<Paths, RetrievalError>;
 
-  enum class IncludeAppFolderTag
-  {
-    Set,
-    Unset
-  };
   inline static auto constexpr IncludeAppFolder = IncludeAppFolderTag::Set;
   /**
    * @brief Returns a standard user-local path for host os

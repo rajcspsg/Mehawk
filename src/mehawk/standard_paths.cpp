@@ -12,7 +12,7 @@
 #include <tl/optional.hpp>
 
 #include <mehawk/standard_paths.hpp>
-#include <mehawk/global_config.hpp>
+#include <mehawk/static_config.hpp>
 #include <mehawk/os_detection.hpp>
 #include <mehawk/prelude.hpp>
 
@@ -110,14 +110,12 @@ auto StandardPaths::get(IncludeAppFolderTag const tag) -> GetResult
     get_windows_standard_paths();
 #endif
 
-  spdlog::error("{}", paths.value().data.string());
-
   if(tag != IncludeAppFolder) {
     return paths;
   }
 
   return paths.map([](Paths const& paths) {
-    auto const app_folder = config::app_name() + "/";
+    auto const app_folder = static_config::app_name() + "/";
 
     return StandardPaths::Paths {
       .config = paths.config / app_folder,
