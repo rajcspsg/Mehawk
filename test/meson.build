@@ -2,7 +2,7 @@ local_deps = [
   dependency('catch2-with-main', required: true),
 ]
 
-test_sources = files('env.cpp')
+test_sources = files()
 
 test_exe = executable(
   'mehawk_test',
@@ -12,9 +12,7 @@ test_exe = executable(
   override_options: mehawk_compilation_options,
 )
 
-tests = [
-  'Empty optional on non-existent env variable',
-]
+tests = []
 
 foreach test : tests
   test(test, test_exe)

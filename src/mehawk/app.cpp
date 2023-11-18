@@ -31,7 +31,9 @@ auto setup_logs() -> void
     auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
     console_sink->set_level(spdlog::level::trace);
 
-    auto daily_sink = std::make_shared<spdlog::sinks::daily_file_sink_mt>(log_path, 23, 59);
+    auto constexpr rotation_hour = 23;
+    auto constexpr rotation_minute = 59;
+    auto daily_sink = std::make_shared<spdlog::sinks::daily_file_sink_mt>(log_path, rotation_hour, rotation_minute);
 
     console_sink->set_level(spdlog::level::info);
 
