@@ -50,6 +50,7 @@ include_dirs = [
 
 sources = files(
   'src/mehawk/standard_paths.cpp',
+  'src/mehawk/app_config.cpp',
   'src/mehawk/env.cpp',
   'src/mehawk/app.cpp'
 )
