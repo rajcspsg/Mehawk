@@ -52,6 +52,30 @@ private:
 
 } // namespace impl
 
+template<typename Type>
+class MustInit
+{
+public:
+  MustInit() = delete;
+
+  template<typename T>
+    requires(not std::same_as<T, MustInit>)
+  constexpr MustInit(T&& data) // NOLINT
+    : data(static_cast<T&&>(data))
+  {}
+
+  constexpr operator decltype(auto)() & noexcept { return data; }
+
+  constexpr operator decltype(auto)() && noexcept { return std::move(data); }
+
+  constexpr operator decltype(auto)() const& noexcept { return data; }
+
+  constexpr operator decltype(auto)() const&& noexcept { return std::move(data); }
+
+private:
+  Type data;
+};
+
 // NOLINTBEGIN(cppcoreguidelines-macro-usage)
 #define MH_TRAP(...) (ASSERT(false, "This should never happen.\n" #__VA_ARGS__), unreachable())
 #define DISTINCT(Type) impl::DistinctType<Type, [] {}>
