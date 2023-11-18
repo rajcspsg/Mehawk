@@ -20,12 +20,36 @@
         pkgs,
         system,
         ...
-      }: {
+      }: let
+        mehawkBuildInputs = [
+          pkgs.xorg.libX11
+          pkgs.xorg.libXrandr
+          pkgs.xorg.libXinerama
+          pkgs.xorg.libXcursor
+          pkgs.xorg.libXi
+          pkgs.libxkbcommon
+          pkgs.libGL
+          pkgs.libglvnd
+
+          pkgs.llvmPackages_16.bintools
+          pkgs.clang-tools_16
+          pkgs.cmake
+          pkgs.pkg-config
+
+          pkgs.just
+          pkgs.ninja
+          pkgs.meson
+
+          pkgs.openssl
+          pkgs.python311
+          pkgs.zlib
+        ];
+      in {
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
           overlays = [
             inputs.nixgl.overlay
-            (new: prev: { gf = inputs'.nixpkgs-unstable.legacyPackages.gf; })
+            (new: prev: {gf = inputs'.nixpkgs-unstable.legacyPackages.gf;})
           ];
         };
 
@@ -35,32 +59,12 @@
           pkgs.mkShell.override {
             stdenv = pkgs.clang16Stdenv;
           } {
-            buildInputs = with pkgs; [
-              xorg.libX11
-              xorg.libXrandr
-              xorg.libXinerama
-              xorg.libXcursor
-              xorg.libXi
-              libxkbcommon
-              libGL
-              libglvnd
-
-              pkgs.nixgl.auto.nixGLDefault
-              llvmPackages_16.bintools
-              clang-tools_16
-              cmake
-              pkg-config
-
-              gf
-
-              just
-              ninja
-              meson
-
-              openssl
-              python311
-              zlib
-            ];
+            buildInputs =
+              mehawkBuildInputs
+              ++ [
+                pkgs.gf
+                pkgs.nixgl.auto.nixGLDefault
+              ];
 
             env = {
               CLANGD_PATH = "${pkgs.clang-tools_16}/bin/clangd";
