@@ -1,5 +1,0 @@
-[wrap-git]
-url = https://github.com/brainboxdotcc/DPP
-revision = v10.0.23
-
-diff_files = dpp/dpp-selfbot.patch

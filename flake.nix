@@ -6,8 +6,6 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
-
-    nixgl.url = "github:guibou/nixGL";
   };
 
   outputs = inputs @ {flake-parts, ...}:
@@ -22,17 +20,7 @@
         ...
       }: let
         mehawkBuildInputs = [
-          pkgs.xorg.libX11
-          pkgs.xorg.libXrandr
-          pkgs.xorg.libXinerama
-          pkgs.xorg.libXcursor
-          pkgs.xorg.libXi
-          pkgs.libxkbcommon
-          pkgs.libGL
-          pkgs.libglvnd
-
-          pkgs.llvmPackages_15.bintools
-          pkgs.clang-tools_15
+          pkgs.lld
           pkgs.cmake
           pkgs.pkg-config
 
@@ -40,21 +28,46 @@
           pkgs.ninja
           pkgs.meson
           pkgs.git
-
-          pkgs.openssl
-          pkgs.python311
-          pkgs.zlib
         ];
       in {
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
           overlays = [
-            inputs.nixgl.overlay
             (new: prev: { gf = inputs'.nixpkgs-unstable.legacyPackages.gf; })
           ];
         };
 
         formatter = pkgs.alejandra;
+
+        packages.default = pkgs.stdenv.mkDerivation {
+          name = "mehawk";
+          version = "git";
+
+          src = builtins.filterSource (path: type:
+            baseNameOf path
+            != ".git"
+            && baseNameOf path != ".direnv"
+            && baseNameOf path != ".github"
+            && baseNameOf path != ".tests"
+            && baseNameOf path != "docs"
+            && baseNameOf path != "build_debug"
+            && baseNameOf path != "build_release") ./.;
+
+          buildInputs = mehawkBuildInputs;
+
+          configurePhase = ''
+            just sr
+          '';
+
+          buildPhase = ''
+            just cr
+          '';
+
+          installPhase = ''
+            mkdir $out/bin
+            cp build_release/mehawk/mehawk
+          '';
+        };
 
         devShells.default =
           pkgs.mkShell.override {
@@ -64,7 +77,6 @@
               mehawkBuildInputs
               ++ [
                 pkgs.gf
-                pkgs.nixgl.auto.nixGLDefault
               ];
 
             env = {

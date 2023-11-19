@@ -20,7 +20,6 @@ cmake = import('cmake')
 build_type_opts = cmake.subproject_options()
 build_type_opts.add_cmake_defines( { 'CMAKE_BUILD_TYPE': get_option('buildtype').to_upper() } )
 
-dpp_sub = cmake.subproject('dpp', options: build_type_opts, required: true)
 libassert_sub = cmake.subproject('libassert', options: build_type_opts, required: true)
 optional_sub = cmake.subproject('optional', options: build_type_opts, required: true)
 expected_sub = cmake.subproject('expected', options: build_type_opts, required: true)
@@ -28,7 +27,6 @@ expected_sub = cmake.subproject('expected', options: build_type_opts, required: 
 local_deps = [
   dependency('threads', required: true),
 
-  dpp_sub.dependency('dpp'),
   libassert_sub.dependency('assert'),
   optional_sub.dependency('optional'),
   expected_sub.dependency('expected'),
@@ -37,7 +35,6 @@ local_deps = [
   dependency('magic_enum', required: true),
   dependency('fmt', required: true),
   dependency('spdlog', required: true),
-  dependency('glfw3', required: true),
 ]
 
 mehawk_compilation_options = [

@@ -24,11 +24,11 @@ compile-release:
 
 alias rd := run-debug
 run-debug:
-	nixGL {{ debug_build_dir }}/src/mehawk
+	{{ debug_build_dir }}/src/mehawk
 
 alias rr := run-release
 run-release:
-	nixGL {{ release_build_dir }}/src/mehawk
+	{{ release_build_dir }}/src/mehawk
 
 alias t := test
 test:
