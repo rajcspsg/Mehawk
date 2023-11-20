@@ -1,0 +1,7 @@
+prefix=@out@
+includedir=${prefix}/include
+
+Name: libassert
+Description: libassert
+Version: 1.1
+Cflags: -I${includedir}/

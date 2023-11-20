@@ -1,5 +1,11 @@
+catch2 = dependency('catch2', method: 'auto', required: false)
+# if not expected.found()
+#   catch2_sub = cmake.subproject('', options: build_type_opts, required: true)
+#   catch2 = catch2_sub.dependency('catch2-with-main')
+# endif
+
 local_deps = [
-  dependency('catch2-with-main', required: true),
+  catch2
 ]
 
 test_sources = files()

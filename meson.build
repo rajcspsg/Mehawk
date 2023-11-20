@@ -18,18 +18,32 @@ endif
 cmake = import('cmake')
 
 build_type_opts = cmake.subproject_options()
-build_type_opts.add_cmake_defines( { 'CMAKE_BUILD_TYPE': get_option('buildtype').to_upper() } )
+build_type_opts.add_cmake_defines({ 'CMAKE_BUILD_TYPE': get_option('buildtype').to_upper() } )
 
-libassert_sub = cmake.subproject('libassert', options: build_type_opts, required: true)
-optional_sub = cmake.subproject('optional', options: build_type_opts, required: true)
-expected_sub = cmake.subproject('expected', options: build_type_opts, required: true)
+libassert = dependency('libassert', method: 'auto', required: false)
+if not libassert.found()
+  libassert_sub = cmake.subproject('libassert', options: build_type_opts, required: true)
+  libassert = libassert_sub.dependency('assert')
+endif
+
+optional = dependency('optional', method: 'auto', required: false)
+if not optional.found()
+  optional_sub = cmake.subproject('optional', options: build_type_opts, required: true)
+  optional = optional_sub.dependency('optional')
+endif
+
+expected = dependency('expected', method: 'auto', required: false)
+if not expected.found()
+  expected_sub = cmake.subproject('expected', options: build_type_opts, required: true)
+  expected = expected_sub.dependency('expected')
+endif
 
 local_deps = [
   dependency('threads', required: true),
 
-  libassert_sub.dependency('assert'),
-  optional_sub.dependency('optional'),
-  expected_sub.dependency('expected'),
+  libassert,
+  optional,
+  expected,
 
   dependency('tomlplusplus', required: true),
   dependency('magic_enum', required: true),

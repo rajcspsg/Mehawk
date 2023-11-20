@@ -17,8 +17,10 @@
 
 !.deepsource.toml
 !.envrc
+
 !flake.lock
 !flake.nix
+!nix/
 
 !.github/
 !tools/

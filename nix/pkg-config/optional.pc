@@ -1,0 +1,7 @@
+prefix=@out@
+includedir=${prefix}/include
+
+Name: optional
+Description: TartanLlama's optional
+Version: 1.1.0
+Cflags: -I${includedir}/

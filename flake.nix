@@ -8,76 +8,90 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
-  outputs = inputs @ {flake-parts, ...}:
-    flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = ["x86_64-linux"];
-      perSystem = {
-        config,
-        self',
-        inputs',
-        pkgs,
-        system,
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} (
+      {
+        flake-parts-lib,
+        withSystem,
         ...
-      }: let
-        mehawkBuildInputs = [
-          pkgs.lld
-          pkgs.cmake
-          pkgs.pkg-config
+      }: {
+        systems = ["x86_64-linux"];
+        perSystem = {
+          config,
+          self',
+          inputs',
+          pkgs,
+          system,
+          ...
+        }: let
+          dependencies = pkgs.callPackage ./nix/dependencies.nix {inherit pkgs;};
 
-          pkgs.just
-          pkgs.ninja
-          pkgs.meson
-          pkgs.git
-        ];
-      in {
-        _module.args.pkgs = import inputs.nixpkgs {
-          inherit system;
-          overlays = [
-            (new: prev: { gf = inputs'.nixpkgs-unstable.legacyPackages.gf; })
-          ];
-        };
+          mehawkBuildInputs =
+            [
+              pkgs.spdlog
+              pkgs.fmt
+              pkgs.magic-enum
+              pkgs.tomlplusplus
+              pkgs.catch2_3
 
-        formatter = pkgs.alejandra;
+              pkgs.lld
+              pkgs.cmake
+              pkgs.cmake
+              pkgs.pkg-config
 
-        packages.default = pkgs.stdenv.mkDerivation {
-          name = "mehawk";
-          version = "git";
+              pkgs.just
+              pkgs.ninja
+              pkgs.meson
+              pkgs.git
+            ]
+            ++ dependencies;
+        in {
+          _module.args.pkgs = import inputs.nixpkgs {
+            inherit system;
+            overlays = [
+              (new: prev: {gf = inputs'.nixpkgs-unstable.legacyPackages.gf;})
+            ];
+          };
 
-          src = builtins.filterSource (path: type:
-            baseNameOf path
-            != ".git"
-            && baseNameOf path != ".direnv"
-            && baseNameOf path != ".github"
-            && baseNameOf path != ".tests"
-            && baseNameOf path != "docs"
-            && baseNameOf path != "build_debug"
-            && baseNameOf path != "build_release") ./.;
+          formatter = pkgs.alejandra;
 
-          buildInputs = mehawkBuildInputs;
+          packages.default = pkgs.stdenv.mkDerivation {
+            name = "mehawk";
+            version = "0.1.0";
 
-          configurePhase = ''
-            just sr
-          '';
+            src = builtins.filterSource (path: type:
+              baseNameOf path
+              != ".git"
+              && baseNameOf path != ".direnv"
+              && baseNameOf path != ".cache"
+              && baseNameOf path != ".github"
+              && baseNameOf path != ".tests"
+              && baseNameOf path != "docs"
+              && baseNameOf path != "nix"
+              && baseNameOf path != "build_debug"
+              && baseNameOf path != "build_release")
+            ./.;
 
-          buildPhase = ''
-            just cr
-          '';
+            buildInputs = mehawkBuildInputs;
 
-          installPhase = ''
-            mkdir $out/bin
-            cp build_release/mehawk/mehawk
-          '';
-        };
+            configurePhase = ''
+              just sr
+            '';
 
-        devShells.default =
-          pkgs.mkShell.override {
-            stdenv = pkgs.clang15Stdenv;
-          } {
-            buildInputs =
-              mehawkBuildInputs
-              ++ [
-                pkgs.gf
-              ];
+            buildPhase = ''
+              just cr
+            '';
+
+            installPhase = ''
+              mkdir -p $out/bin
+              cp build_release/src/mehawk $out/bin
+            '';
+          };
+
+          devShells.default = pkgs.mkShell.override {stdenv = pkgs.clang15Stdenv;} {
+            hardeningDisable = ["all"];
+
+            buildInputs = mehawkBuildInputs ++ [pkgs.gf];
 
             env = {
               CLANGD_PATH = "${pkgs.clang-tools_15}/bin/clangd";
@@ -85,6 +99,7 @@
               CXX_LD = "lld";
             };
           };
-      };
-    };
+        };
+      }
+    );
 }
